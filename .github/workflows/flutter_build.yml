@@ -29,7 +29,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v2.3.1
+        uses: actions/upload-artifact@a8a0c58837c8e8d1db37c47e7c80a4a6f14a7f2f
         with:
           name: milk_delivery_apk
           path: build/app/outputs/flutter-apk/app-release.apk
