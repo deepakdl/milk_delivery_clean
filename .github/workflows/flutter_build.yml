@@ -8,14 +8,14 @@ on:
 jobs:
   build:
     name: Build APK
-    runs-on: ubuntu-latest  # Use stable Ubuntu 22.04 runner
+    runs-on: ubuntu-22.04  # 👈 this is the key fix
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3.6.0
+        uses: actions/checkout@v3
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.10.0
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.6'
 
@@ -26,7 +26,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v3
         with:
           name: milk_delivery_apk
           path: build/app/outputs/flutter-apk/app-release.apk
