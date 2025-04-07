@@ -17,13 +17,23 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.19.6'
-        cache: true
+        cache: false  # Disable cache for a clean rebuild
+
+    - name: Clear Flutter Pub Cache
+      run: flutter pub cache repair
 
     - name: Run flutter doctor
       run: flutter doctor
 
     - name: Get dependencies
       run: flutter pub get
+
+    - name: Check for legacy plugin registrant and embedding version
+      run: |
+        echo "🔍 Checking for GeneratedPluginRegistrant:"
+        find . -name "GeneratedPluginRegistrant*"
+        echo "🔍 Checking for .metadata content:"
+        cat .metadata || echo "⚠️ .metadata not found!"
 
     - name: Build APK
       run: flutter build apk --release
