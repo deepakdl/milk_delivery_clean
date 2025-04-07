@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build APK
-    runs-on: ubuntu-22.04  # 👈 this is the key fix
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
@@ -22,11 +22,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Enable flutter for android
+        run: flutter config --enable-android
+
       - name: Build APK
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: milk_delivery_apk
+          name: milk_delivery_apk_${{ github.run_id }}
           path: build/app/outputs/flutter-apk/app-release.apk
