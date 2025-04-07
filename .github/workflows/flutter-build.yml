@@ -28,10 +28,15 @@ jobs:
     - name: Get dependencies
       run: flutter pub get
 
-    - name: Check for legacy plugin registrant and embedding version
+    - name: Check and auto-delete legacy plugin registrant
       run: |
         echo "🔍 Checking for GeneratedPluginRegistrant:"
-        find . -name "GeneratedPluginRegistrant*"
+        if [ -f android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java ]; then
+          echo "⚠️ Found legacy GeneratedPluginRegistrant.java. Deleting..."
+          rm android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+        else
+          echo "✅ No legacy plugin registrant found."
+        fi
         echo "🔍 Checking for .metadata content:"
         cat .metadata || echo "⚠️ .metadata not found!"
 
