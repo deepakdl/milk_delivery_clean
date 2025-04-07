@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Flutter APK
 
 on:
   push:
@@ -7,28 +7,29 @@ on:
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6'
+          flutter-version: '3.19.6' # or your desired Flutter version
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Enable Android support
+      - name: Enable flutter for android
         run: flutter config --enable-android
 
       - name: Build APK
         run: flutter build apk --release
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: milk_delivery_apk
           path: build/app/outputs/flutter-apk/app-release.apk
