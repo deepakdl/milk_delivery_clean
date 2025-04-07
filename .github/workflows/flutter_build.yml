@@ -17,7 +17,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6' # or your desired Flutter version
+          flutter-version: '3.19.6'
 
       - name: Install dependencies
         run: flutter pub get
@@ -28,8 +28,8 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v2.3.1
         with:
           name: milk_delivery_apk
           path: build/app/outputs/flutter-apk/app-release.apk
