@@ -31,9 +31,10 @@ jobs:
     - name: Check and auto-delete legacy plugin registrant
       run: |
         echo "🔍 Checking for GeneratedPluginRegistrant:"
-        if [ -f android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java ]; then
-          echo "⚠️ Found legacy GeneratedPluginRegistrant.java. Deleting..."
-          rm android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+        FILE=android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+        if [ -f "$FILE" ]; then
+          echo "⚠️ Found legacy $FILE. Deleting..."
+          rm -f "$FILE"
         else
           echo "✅ No legacy plugin registrant found."
         fi
